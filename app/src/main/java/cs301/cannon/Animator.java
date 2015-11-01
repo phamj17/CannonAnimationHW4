@@ -68,5 +68,7 @@ public interface Animator {
 	 * 
 	 * @param event a MotionEvent describing the touch
 	 */
-	public void onTouch(MotionEvent event); 
+	public void onTouch(MotionEvent event);
+
+	public void getAngle(double angle);
 }

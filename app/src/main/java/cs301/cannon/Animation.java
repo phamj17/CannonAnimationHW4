@@ -12,11 +12,15 @@ import android.view.MotionEvent;
  * @author Andrew Nuxoll
  * @version September 2012
  */
-public class TestAnimator implements Animator {
+public class Animation implements Animator {
 
 	// instance variables
 	private int count = 0; // counts the number of logical clock ticks
-	private boolean goBackwards = false; // whether clock is ticking backwards
+	private boolean shoot = false; // whether clock is ticking backwards
+	double degrees;
+	double radians = degrees * Math.PI / 180;
+	CannonBall ball = new CannonBall(radians);
+
 	
 	/**
 	 * Interval between animation frames: .03 seconds (i.e., about 33 times
@@ -38,15 +42,15 @@ public class TestAnimator implements Animator {
 		return Color.rgb(180, 200, 255);
 	}
 	
-	/**
-	 * Tells the animation whether to go backwards.
-	 * 
-	 * @param b true iff animation is to go backwards.
-	 */
-	public void goBackwards(boolean b) {
-		// set our instance variable
-		goBackwards = b;
-	}
+//	/**
+//	 * Tells the animation whether to go backwards.
+//	 *
+//	 * @param b true iff animation is to go backwards.
+//	 */
+//	public void goBackwards(boolean b) {
+//		// set our instance variable
+//		goBackwards = b;
+//	}
 	
 	/**
 	 * Action to perform on clock tick
@@ -56,25 +60,41 @@ public class TestAnimator implements Animator {
 	public void tick(Canvas g) {
 		// bump our count either up or down by one, depending on whether
 		// we are in "backwards mode".
-		if (goBackwards) {
-			count--;
-		}
-		else {
+
+
+		//ball.setAngle(degrees);
+		if (shoot) {
 			count++;
+			ball.calculate(ball);
 		}
-		
+//		else {
+//			count++;
+//			ball.setTime(count);
+//			ball.calculate(ball);
+//
+//		}
+
+
+
+		//CannonBall newBall = new CannonBall(ball);
+
+		Paint cannonball = new Paint();
+		cannonball.setColor(Color.BLACK);
+		g.drawCircle(ball.getXPosition(), g.getHeight() - ball.getYPosition() - 150, 45, cannonball);
+
+
 		// Determine the pixel position of our ball.  Multiplying by 15
 		// has the effect of moving 15 pixel per frame.  Modding by 600
 		// (with the appropriate correction if the value was negative)
 		// has the effect of "wrapping around" when we get to either end
 		// (since our canvas size is 600 in each dimension).
-		int num = (count*15)%600;
-		if (num < 0) num += 600;
+		//int num = (count*15);
+		//if (num < 0) num += 600;
 		
 		// Draw the ball in the correct position.
-		Paint redPaint = new Paint();
-		redPaint.setColor(Color.RED);
-		g.drawCircle(num, num, 60, redPaint);
+		//Paint redPaint = new Paint();
+		//redPaint.setColor(Color.RED);
+		//g.drawCircle(num, num, 60, redPaint);
 	}
 
 	/**
@@ -102,8 +122,12 @@ public class TestAnimator implements Animator {
 	{
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
-			goBackwards = !goBackwards;
+			shoot = true;
 		}
+	}
+
+	public void getAngle(double angle) {
+		degrees = angle;
 	}
 	
 	

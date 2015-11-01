@@ -22,6 +22,7 @@ public class CannonMainActivity extends Activity {
 
 	private SeekBar angleSeek;
 	private TextView angleDisplay;
+	private double degrees;
 	/**
 	 * creates an AnimationCanvas containing a TestAnimator.
 	 */
@@ -36,7 +37,8 @@ public class CannonMainActivity extends Activity {
 		angleSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				angleDisplay.setText(String.valueOf(progress));
+				degrees = (double)progress / 10.0;
+				angleDisplay.setText(Double.toString(degrees));
 			}
 
 			@Override
@@ -51,7 +53,8 @@ public class CannonMainActivity extends Activity {
 		});
 
 		// Create an animation canvas and place it in the main layout
-		Animator testAnim = new TestAnimator();
+		Animator testAnim = new Animation();
+		testAnim.getAngle(degrees);
 		AnimationCanvas myCanvas = new AnimationCanvas(this, testAnim);
 		LinearLayout mainLayout = (LinearLayout) this
 				.findViewById(R.id.topLevelLayout);

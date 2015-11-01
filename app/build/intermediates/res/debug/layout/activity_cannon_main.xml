@@ -10,22 +10,26 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".2">
+            android:layout_weight=".4">
 
             <SeekBar
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/angleSeek"
                 android:layout_weight="1"
-                android:indeterminate="false" />
+                android:indeterminate="false"
+                android:max="900"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
+                android:text="0.0"
                 android:id="@+id/angleText"
-                android:layout_weight=".025" />
+                android:layout_weight=".025"
+                android:gravity="center_vertical|center_horizontal" />
 
         </LinearLayout>
 
@@ -38,7 +42,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".4"></LinearLayout>
+            android:layout_weight=".4"
+            android:minHeight="12dp"
+            android:minWidth="6dp"></LinearLayout>
 
     </LinearLayout>
 <!-- From: file:/P:/cs301/HW4/CannonAnimation/app/src/main/res/layout/activity_cannon_main.xml -->
