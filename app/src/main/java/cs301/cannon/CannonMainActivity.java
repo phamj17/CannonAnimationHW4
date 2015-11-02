@@ -23,9 +23,13 @@ public class CannonMainActivity extends Activity {
 
 	private SeekBar angleSeek;
 	private TextView angleDisplay;
-	//private NumberPicker gravity;
+	private NumberPicker gravity;
+
+	private int gravValue;
+	private String[] nums = {"-11","-10","-9","-8","-7","-6","-5","-4","-3","-2","-1","0"};
+
 	private double degrees;
-	Animator testAnim;
+	private Animator testAnim;
 	/**
 	 * creates an AnimationCanvas containing a TestAnimator.
 	 */
@@ -37,12 +41,20 @@ public class CannonMainActivity extends Activity {
 		angleSeek = (SeekBar)findViewById(R.id.angleSeek);
 		angleDisplay = (TextView)findViewById(R.id.angleText);
 
-		//gravity = (NumberPicker)findViewById(R.id.gravSelect);
-		//gravity.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-		//	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-//
-		//	}
-		//});
+		gravity = (NumberPicker)findViewById(R.id.gravSelect);
+		gravity.setDisplayedValues(nums);
+		gravity.setMinValue(0);
+		gravity.setMaxValue(11);
+		gravity.setWrapSelectorWheel(false);
+
+		//disables keyboard
+		gravity.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		gravity.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+				gravValue = newVal - 11;
+				testAnim.getGravity(gravValue);
+			}
+		});
 
 		angleSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override

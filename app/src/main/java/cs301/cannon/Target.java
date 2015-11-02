@@ -19,13 +19,13 @@ public class Target {
 
     public Target(int number) {
         if (number == 0) {
-            x = rand.nextInt(1000) + 50;
-            y = rand.nextInt(500) + 100;
+            x = rand.nextInt(700) + 50;
+            y = rand.nextInt(350) + 200;
             color = Color.RED;
         }
         if (number == 1) {
-            x = rand.nextInt(1000) + 1050;
-            y = rand.nextInt(500) + 600;
+            x = rand.nextInt(700) + 750;
+            y = rand.nextInt(350) + 600;
             color = Color.BLUE;
         }
     }

@@ -25,7 +25,8 @@ public class Animation implements Animator {
 	//private int maxHeight;
 	//private int maxWidth;
 
-	double degrees;
+	private double degrees;
+	private int gravity = -11;
 	private Cannon cannon = new Cannon();
 	private CannonBall ball = new CannonBall();
 	private Target target0 = new Target(0);
@@ -74,6 +75,7 @@ public class Animation implements Animator {
 		//ballList.add(ball);
 		//CannonBall newOne = ballList.get(count);
 
+
 		if (shoot) {
 				ball.calculate(ball);
 		}
@@ -97,9 +99,9 @@ public class Animation implements Animator {
 	 * @return indication of whether to pause
 	 */
 	public boolean doPause() {
-		if ((ball.getYPosition()) == 0 && shoot) {
-			return true;
-		}
+//		if ((ball.getYPosition()) == 0 && shoot) {
+//			return true;
+//		}
 		return false;
 	}
 
@@ -120,8 +122,11 @@ public class Animation implements Animator {
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
 			//if (shoot == false) {
+				ball = new CannonBall();
+				ball.setGravity(gravity);
 				ball.initVel(degrees);
 				shoot = true;
+
 			//}
 //			else {
 //				ball = new CannonBall();
@@ -140,6 +145,9 @@ public class Animation implements Animator {
 
 	public void getAngle(double angle) {
 		degrees = angle;
+	}
+	public void getGravity(int newGrav) {
+		gravity = newGrav;
 	}
 
 //	@Override

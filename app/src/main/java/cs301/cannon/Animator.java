@@ -71,4 +71,6 @@ public interface Animator {
 	public void onTouch(MotionEvent event);
 
 	public void getAngle(double angle);
+
+	public void getGravity(int newGrav);
 }

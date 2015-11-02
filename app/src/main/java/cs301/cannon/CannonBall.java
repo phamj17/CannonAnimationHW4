@@ -15,8 +15,8 @@ public class CannonBall {
     private int yVelocity;
     private double angle;
     private int size;
-    private final int g = -5;
-    private final int initVelocity = 120;
+    private int g;
+    private final int initVelocity = 150;
 
     public CannonBall() {
         angle = 0.0;
@@ -25,6 +25,7 @@ public class CannonBall {
         xVelocity = 0;
         yVelocity = 0;
         size = 45;
+        g = -11;
     }
 
     public void initVel(double degrees) {
@@ -53,6 +54,15 @@ public class CannonBall {
         double yVel = current.getYVelocity() + g;
         current.setYVelocity((int) yVel);
 
+        int y = current.getYPosition() + current.getYVelocity();
+        if (y >= 0) {
+            current.setYPosition(y);
+        }
+        else {
+            current.setYPosition(0);
+            current.setYVelocity(-3 * g * current.getYVelocity() / 2);
+        }
+
         int x = current.getXPosition() + current.getXVelocity();
         if (x >= 0) {
             current.setXPosition(x);
@@ -60,13 +70,7 @@ public class CannonBall {
         else {
             current.setXPosition(0);
         }
-        int y = current.getYPosition() + current.getYVelocity();
-        if (y >= 0) {
-            current.setYPosition(y);
-        }
-        else {
-            current.setYPosition(0);
-        }
+
 
     }
 
@@ -88,6 +92,8 @@ public class CannonBall {
     public int getYVelocity() {return yVelocity;}
 
     public void setXPosition(int newX) {xPosition = newX;}
+    //public void setXVelocity(int newXVel) {xVelocity = newXVel;}
     public void setYPosition(int newY) {yPosition = newY;}
     public void setYVelocity(int newYVel) {yVelocity = newYVel;}
+    public void setGravity(int newGrav) {g = newGrav;}
 }
