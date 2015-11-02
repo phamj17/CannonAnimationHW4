@@ -14,6 +14,7 @@ public class CannonBall {
     private int xVelocity;
     private int yVelocity;
     private double angle;
+    private int size;
     private final int g = -5;
     private final int initVelocity = 120;
 
@@ -23,6 +24,7 @@ public class CannonBall {
         yPosition = 0;
         xVelocity = 0;
         yVelocity = 0;
+        size = 45;
     }
 
     public void initVel(double degrees) {
@@ -75,7 +77,7 @@ public class CannonBall {
     public void paint(Canvas g) {
         Paint cannonball = new Paint();
         cannonball.setColor(Color.BLACK);
-        g.drawCircle(xPosition, g.getHeight() - yPosition - 150, 40, cannonball);
+        g.drawCircle(xPosition, g.getHeight() - yPosition - 150, size, cannonball);
 
     }
 
