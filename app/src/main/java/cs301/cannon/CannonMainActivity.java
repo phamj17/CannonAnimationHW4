@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,7 +23,9 @@ public class CannonMainActivity extends Activity {
 
 	private SeekBar angleSeek;
 	private TextView angleDisplay;
+	//private NumberPicker gravity;
 	private double degrees;
+	Animator testAnim;
 	/**
 	 * creates an AnimationCanvas containing a TestAnimator.
 	 */
@@ -34,11 +37,19 @@ public class CannonMainActivity extends Activity {
 		angleSeek = (SeekBar)findViewById(R.id.angleSeek);
 		angleDisplay = (TextView)findViewById(R.id.angleText);
 
+		//gravity = (NumberPicker)findViewById(R.id.gravSelect);
+		//gravity.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+		//	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//
+		//	}
+		//});
+
 		angleSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				degrees = (double)progress / 10.0;
 				angleDisplay.setText(Double.toString(degrees));
+				testAnim.getAngle(degrees);
 			}
 
 			@Override
@@ -53,8 +64,7 @@ public class CannonMainActivity extends Activity {
 		});
 
 		// Create an animation canvas and place it in the main layout
-		Animator testAnim = new Animation();
-		testAnim.getAngle(degrees);
+		testAnim = new Animation();
 		AnimationCanvas myCanvas = new AnimationCanvas(this, testAnim);
 		LinearLayout mainLayout = (LinearLayout) this
 				.findViewById(R.id.topLevelLayout);

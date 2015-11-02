@@ -1,5 +1,9 @@
 package cs301.cannon;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
 /**
  * Created by phamj17 on 10/30/2015.
  */
@@ -11,18 +15,36 @@ public class CannonBall {
     private int yVelocity;
     private double angle;
     private final int g = -5;
-    private final int initVelocity = 100;
+    private final int initVelocity = 120;
 
-    public CannonBall(double degrees) {
-        angle = 60 * Math.PI / 180;
+    public CannonBall() {
+        angle = 0.0;
         xPosition = 0;
         yPosition = 0;
+        xVelocity = 0;
+        yVelocity = 0;
+    }
+
+    public void initVel(double degrees) {
+        angle = Math.toRadians(degrees);
+                //degrees * Math.PI / 180;
 
         double xVel = initVelocity * Math.cos(angle);
         xVelocity = (int) xVel;
         double yVel = initVelocity * Math.sin(angle);
         yVelocity = (int) yVel;
     }
+
+//    public CannonBall(double degrees) {
+//        angle = degrees * Math.PI / 180;
+//        xPosition = 0;
+//        yPosition = 0;
+//
+//        double xVel = initVelocity * Math.cos(angle);
+//        xVelocity = (int) xVel;
+//        double yVel = initVelocity * Math.sin(angle);
+//        yVelocity = (int) yVel;
+//    }
 
     public void calculate(CannonBall current) {
 
@@ -46,27 +68,24 @@ public class CannonBall {
 
     }
 
-//    public void calcVelocity(double degrees) {
-//        double radians = degrees * Math.PI / 180;
-//        double x = initVelocity * Math.sin(radians);
-//        xVelocity = (int) x;
-//        double y = initVelocity * Math.cos(radians);
-//        yVelocity = (int) y;
+//    public void stopBall(CannonBall current) {
+//
 //    }
+
+    public void paint(Canvas g) {
+        Paint cannonball = new Paint();
+        cannonball.setColor(Color.BLACK);
+        g.drawCircle(xPosition, g.getHeight() - yPosition - 150, 40, cannonball);
+
+    }
 
 
     public int getXPosition() {return xPosition;}
     public int getYPosition() {return yPosition;}
     public int getXVelocity() {return xVelocity;}
     public int getYVelocity() {return yVelocity;}
-    public int getInitVelocity() {return initVelocity;}
-    public double getAngle() {return angle;}
 
     public void setXPosition(int newX) {xPosition = newX;}
     public void setYPosition(int newY) {yPosition = newY;}
     public void setYVelocity(int newYVel) {yVelocity = newYVel;}
-
-    //public void setTime(int count) {time = count;}
-
-    public void setAngle(double degrees) {angle = degrees;}
 }

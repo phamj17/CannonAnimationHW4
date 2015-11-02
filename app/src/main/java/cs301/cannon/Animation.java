@@ -3,6 +3,10 @@ package cs301.cannon;
 import android.graphics.*;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Vector;
+
 
 /**
  * class that animates a ball repeatedly moving diagonally on
@@ -13,15 +17,22 @@ import android.view.MotionEvent;
  * @version September 2012
  */
 public class Animation implements Animator {
+	//implements Runnable?
 
 	// instance variables
-	private int count = 0; // counts the number of logical clock ticks
+	//private int count = 0; // counts the screen clicks after the first
 	private boolean shoot = false; // whether clock is ticking backwards
-	double degrees;
-	double radians = degrees * Math.PI / 180;
-	CannonBall ball = new CannonBall(radians);
+	//private int maxHeight;
+	//private int maxWidth;
 
-	
+	double degrees;
+	private Cannon cannon = new Cannon();
+	private CannonBall ball = new CannonBall();
+	private Target target0 = new Target(0);
+	private Target target1 = new Target(1);
+	//private ArrayList<CannonBall> ballList = new ArrayList<CannonBall>();
+
+
 	/**
 	 * Interval between animation frames: .03 seconds (i.e., about 33 times
 	 * per second).
@@ -58,43 +69,26 @@ public class Animation implements Animator {
 	 * @param g the graphics object on which to draw
 	 */
 	public void tick(Canvas g) {
-		// bump our count either up or down by one, depending on whether
-		// we are in "backwards mode".
 
+		//ballList.add(new CannonBall());
+		//ballList.add(ball);
+		//CannonBall newOne = ballList.get(count);
 
-		//ball.setAngle(degrees);
 		if (shoot) {
-			count++;
-			ball.calculate(ball);
+				ball.calculate(ball);
 		}
-//		else {
-//			count++;
-//			ball.setTime(count);
-//			ball.calculate(ball);
-//
-//		}
 
+		g.save();
 
-
+		float angleF = (float) degrees;
+		g.rotate(-angleF, 125, g.getHeight() - 80);
 		//CannonBall newBall = new CannonBall(ball);
+		cannon.paint(g);
 
-		Paint cannonball = new Paint();
-		cannonball.setColor(Color.BLACK);
-		g.drawCircle(ball.getXPosition(), g.getHeight() - ball.getYPosition() - 150, 45, cannonball);
-
-
-		// Determine the pixel position of our ball.  Multiplying by 15
-		// has the effect of moving 15 pixel per frame.  Modding by 600
-		// (with the appropriate correction if the value was negative)
-		// has the effect of "wrapping around" when we get to either end
-		// (since our canvas size is 600 in each dimension).
-		//int num = (count*15);
-		//if (num < 0) num += 600;
-		
-		// Draw the ball in the correct position.
-		//Paint redPaint = new Paint();
-		//redPaint.setColor(Color.RED);
-		//g.drawCircle(num, num, 60, redPaint);
+		g.restore();
+		ball.paint(g);
+		target0.paint(g);
+		target1.paint(g);
 	}
 
 	/**
@@ -103,6 +97,9 @@ public class Animation implements Animator {
 	 * @return indication of whether to pause
 	 */
 	public boolean doPause() {
+		if ((ball.getYPosition()) == 0 && shoot) {
+			return true;
+		}
 		return false;
 	}
 
@@ -122,14 +119,43 @@ public class Animation implements Animator {
 	{
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
-			shoot = true;
+			//if (shoot == false) {
+				ball.initVel(degrees);
+				shoot = true;
+			//}
+//			else {
+//				ball = new CannonBall();
+//			}
+//			if (shoot == false) {
+//				shoot = true;
+//			}
+//			else {
+//				Thread newBall = new Thread(this);
+//				newBall.start();
+//				//ballList.add(new CannonBall());
+//			}
+//			count++;
 		}
 	}
 
 	public void getAngle(double angle) {
 		degrees = angle;
 	}
-	
-	
 
+//	@Override
+//	public void run() {
+//		try
+//		{
+//			Thread.sleep(10);
+//		}
+//		catch(InterruptedException ie)
+//		{
+//			//interruption is no problem
+//		}
+//
+//		CannonBall newBall = new CannonBall();
+//		if (newBall != null) {
+//			ballList.add(newBall);
+//		}
+//	}
 }//class TextAnimator
